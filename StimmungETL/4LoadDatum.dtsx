@@ -1,0 +1,535 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="4/12/2021 8:31:12 AM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="ATGRAZ408"
+  DTS:CreatorName="BRATEGGE\weihsp"
+  DTS:DTSID="{CD4C98A2-0513-41DD-8C86-DF19AB84B03C}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="15.0.2000.157"
+  DTS:LocaleID="3079"
+  DTS:ObjectName="Package1"
+  DTS:PackageType="5"
+  DTS:VersionBuild="1"
+  DTS:VersionGUID="{775A02FD-451C-4DC2-8CBF-44D6CAEA7E4D}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[ATGRAZ408]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{1A1A23EA-099A-4AED-8BC3-156DEBA8F6CE}"
+      DTS:ObjectName="ATGRAZ408">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Data Source=ATGRAZ408;Provider=MSOLEDBSQL.1;Integrated Security=SSPI;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[ATGRAZ408.StimmungsWarehouse]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{FAE7D0B3-A8FC-4855-9F67-D7427023C0A1}"
+      DTS:ObjectName="ATGRAZ408.StimmungsWarehouse">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Data Source=ATGRAZ408;Initial Catalog=StimmungsWarehouse;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[Flat File Connection Manager]"
+      DTS:CreationName="FLATFILE"
+      DTS:DTSID="{A985F2BD-2A68-47D4-BB52-0B78472B5D8E}"
+      DTS:ObjectName="Flat File Connection Manager">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:Format="Delimited"
+          DTS:LocaleID="3079"
+          DTS:HeaderRowDelimiter="_x000D__x000A_"
+          DTS:ColumnNamesInFirstDataRow="True"
+          DTS:RowDelimiter=""
+          DTS:TextQualifier="_x003C_none_x003E_"
+          DTS:CodePage="65001"
+          DTS:ConnectionString="C:\Users\weihsp\OneDrive - CAMPUS 02 Fachhochschule der Wirtschaft GmbH\Studium\2.Semester Master\DWBI\Arbeitsblatt1\SQLScripts\Datumsreihe2021.csv">
+          <DTS:FlatFileColumns>
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Datum"
+              DTS:DTSID="{42C86564-E0D3-4DC3-873B-0C2D5362707B}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Feiertag"
+              DTS:DTSID="{66D7A9AC-2F16-41A5-BE78-AE34632843CB}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Kalenderwoche"
+              DTS:DTSID="{03FE9A20-A62C-405A-9303-6BBBFCA4705F}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x000D__x000A_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="TagDerWoche"
+              DTS:DTSID="{074A547A-6AD2-40AA-9C73-315E801D39EF}"
+              DTS:CreationName="" />
+          </DTS:FlatFileColumns>
+        </DTS:ConnectionManager>
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\LoadDatum"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{DD2D037A-1172-4F94-A239-50C2CF079F2E}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="LoadDatum"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\LoadDatum\DatumCSV"
+              componentClassID="Microsoft.FlatFileSource"
+              contactInfo="Flat File Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;1"
+              description="Flat File Source"
+              localeId="3079"
+              name="DatumCSV"
+              usesDispositions="true"
+              version="1">
+              <properties>
+                <property
+                  dataType="System.Boolean"
+                  description="Specifies whether zero-length columns are treated as null."
+                  name="RetainNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of an output column containing the file name. If no name is specified, no output column containing the file name will be generated."
+                  name="FileNameColumnName"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\LoadDatum\DatumCSV.Connections[FlatFileConnection]"
+                  connectionManagerID="Package.ConnectionManagers[Flat File Connection Manager]"
+                  connectionManagerRefId="Package.ConnectionManagers[Flat File Connection Manager]"
+                  name="FlatFileConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\LoadDatum\DatumCSV.Outputs[Flat File Source Output]"
+                  name="Flat File Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\LoadDatum\DatumCSV.Outputs[Flat File Source Output].Columns[Datum]"
+                      codePage="65001"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadDatum\DatumCSV.Outputs[Flat File Source Output].ExternalColumns[Datum]"
+                      length="50"
+                      lineageId="Package\LoadDatum\DatumCSV.Outputs[Flat File Source Output].Columns[Datum]"
+                      name="Datum"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\LoadDatum\DatumCSV.Outputs[Flat File Source Output].Columns[Feiertag]"
+                      codePage="65001"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadDatum\DatumCSV.Outputs[Flat File Source Output].ExternalColumns[Feiertag]"
+                      length="50"
+                      lineageId="Package\LoadDatum\DatumCSV.Outputs[Flat File Source Output].Columns[Feiertag]"
+                      name="Feiertag"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\LoadDatum\DatumCSV.Outputs[Flat File Source Output].Columns[Kalenderwoche]"
+                      codePage="65001"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadDatum\DatumCSV.Outputs[Flat File Source Output].ExternalColumns[Kalenderwoche]"
+                      length="50"
+                      lineageId="Package\LoadDatum\DatumCSV.Outputs[Flat File Source Output].Columns[Kalenderwoche]"
+                      name="Kalenderwoche"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\LoadDatum\DatumCSV.Outputs[Flat File Source Output].Columns[TagDerWoche]"
+                      codePage="65001"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\LoadDatum\DatumCSV.Outputs[Flat File Source Output].ExternalColumns[TagDerWoche]"
+                      length="50"
+                      lineageId="Package\LoadDatum\DatumCSV.Outputs[Flat File Source Output].Columns[TagDerWoche]"
+                      name="TagDerWoche"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\LoadDatum\DatumCSV.Outputs[Flat File Source Output].ExternalColumns[Datum]"
+                      codePage="65001"
+                      dataType="str"
+                      length="50"
+                      name="Datum" />
+                    <externalMetadataColumn
+                      refId="Package\LoadDatum\DatumCSV.Outputs[Flat File Source Output].ExternalColumns[Feiertag]"
+                      codePage="65001"
+                      dataType="str"
+                      length="50"
+                      name="Feiertag" />
+                    <externalMetadataColumn
+                      refId="Package\LoadDatum\DatumCSV.Outputs[Flat File Source Output].ExternalColumns[Kalenderwoche]"
+                      codePage="65001"
+                      dataType="str"
+                      length="50"
+                      name="Kalenderwoche" />
+                    <externalMetadataColumn
+                      refId="Package\LoadDatum\DatumCSV.Outputs[Flat File Source Output].ExternalColumns[TagDerWoche]"
+                      codePage="65001"
+                      dataType="str"
+                      length="50"
+                      name="TagDerWoche" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\LoadDatum\DatumCSV.Outputs[Flat File Source Error Output]"
+                  isErrorOut="true"
+                  name="Flat File Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\LoadDatum\DatumCSV.Outputs[Flat File Source Error Output].Columns[Flat File Source Error Output Column]"
+                      codePage="65001"
+                      dataType="text"
+                      description="Flat File Source Error Output Column"
+                      lineageId="Package\LoadDatum\DatumCSV.Outputs[Flat File Source Error Output].Columns[Flat File Source Error Output Column]"
+                      name="Flat File Source Error Output Column" />
+                    <outputColumn
+                      refId="Package\LoadDatum\DatumCSV.Outputs[Flat File Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\LoadDatum\DatumCSV.Outputs[Flat File Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\LoadDatum\DatumCSV.Outputs[Flat File Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\LoadDatum\DatumCSV.Outputs[Flat File Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\LoadDatum\StimmungWarehouse (DimDatum)"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="StimmungWarehouse (DimDatum)"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[DimDatum]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\LoadDatum\StimmungWarehouse (DimDatum).Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[ATGRAZ408.StimmungsWarehouse]"
+                  connectionManagerRefId="Package.ConnectionManagers[ATGRAZ408.StimmungsWarehouse]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\LoadDatum\StimmungWarehouse (DimDatum).Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\LoadDatum\StimmungWarehouse (DimDatum).Inputs[OLE DB Destination Input].Columns[Feiertag]"
+                      cachedCodepage="65001"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="Feiertag"
+                      externalMetadataColumnId="Package\LoadDatum\StimmungWarehouse (DimDatum).Inputs[OLE DB Destination Input].ExternalColumns[Feiertag]"
+                      lineageId="Package\LoadDatum\DatumCSV.Outputs[Flat File Source Output].Columns[Feiertag]" />
+                    <inputColumn
+                      refId="Package\LoadDatum\StimmungWarehouse (DimDatum).Inputs[OLE DB Destination Input].Columns[Kalenderwoche]"
+                      cachedCodepage="65001"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="Kalenderwoche"
+                      externalMetadataColumnId="Package\LoadDatum\StimmungWarehouse (DimDatum).Inputs[OLE DB Destination Input].ExternalColumns[Kalenderwoche]"
+                      lineageId="Package\LoadDatum\DatumCSV.Outputs[Flat File Source Output].Columns[Kalenderwoche]" />
+                    <inputColumn
+                      refId="Package\LoadDatum\StimmungWarehouse (DimDatum).Inputs[OLE DB Destination Input].Columns[Datum]"
+                      cachedCodepage="65001"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="Datum"
+                      externalMetadataColumnId="Package\LoadDatum\StimmungWarehouse (DimDatum).Inputs[OLE DB Destination Input].ExternalColumns[DatumsKey]"
+                      lineageId="Package\LoadDatum\DatumCSV.Outputs[Flat File Source Output].Columns[Datum]" />
+                    <inputColumn
+                      refId="Package\LoadDatum\StimmungWarehouse (DimDatum).Inputs[OLE DB Destination Input].Columns[TagDerWoche]"
+                      cachedCodepage="65001"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="TagDerWoche"
+                      externalMetadataColumnId="Package\LoadDatum\StimmungWarehouse (DimDatum).Inputs[OLE DB Destination Input].ExternalColumns[Wochentag]"
+                      lineageId="Package\LoadDatum\DatumCSV.Outputs[Flat File Source Output].Columns[TagDerWoche]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\LoadDatum\StimmungWarehouse (DimDatum).Inputs[OLE DB Destination Input].ExternalColumns[DatumsKey]"
+                      dataType="dbDate"
+                      name="DatumsKey" />
+                    <externalMetadataColumn
+                      refId="Package\LoadDatum\StimmungWarehouse (DimDatum).Inputs[OLE DB Destination Input].ExternalColumns[Feiertag]"
+                      dataType="bool"
+                      name="Feiertag" />
+                    <externalMetadataColumn
+                      refId="Package\LoadDatum\StimmungWarehouse (DimDatum).Inputs[OLE DB Destination Input].ExternalColumns[Kalenderwoche]"
+                      dataType="i4"
+                      name="Kalenderwoche" />
+                    <externalMetadataColumn
+                      refId="Package\LoadDatum\StimmungWarehouse (DimDatum).Inputs[OLE DB Destination Input].ExternalColumns[Wochentag]"
+                      dataType="i4"
+                      name="Wochentag" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\LoadDatum\StimmungWarehouse (DimDatum).Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\LoadDatum\StimmungWarehouse (DimDatum).Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\LoadDatum\StimmungWarehouse (DimDatum).Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\LoadDatum\StimmungWarehouse (DimDatum).Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\LoadDatum\StimmungWarehouse (DimDatum).Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\LoadDatum\StimmungWarehouse (DimDatum).Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\LoadDatum.Paths[Flat File Source Output]"
+              endId="Package\LoadDatum\StimmungWarehouse (DimDatum).Inputs[OLE DB Destination Input]"
+              name="Flat File Source Output"
+              startId="Package\LoadDatum\DatumCSV.Outputs[Flat File Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
+        <NodeLayout
+          Size="133,42"
+          Id="Package\LoadDatum"
+          TopLeft="358,186" />
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\LoadDatum">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="129,42"
+          Id="Package\LoadDatum\DatumCSV"
+          TopLeft="466,102" />
+        <NodeLayout
+          Size="241,42"
+          Id="Package\LoadDatum\StimmungWarehouse (DimDatum)"
+          TopLeft="440,242" />
+        <EdgeLayout
+          Id="Package\LoadDatum.Paths[Flat File Source Output]"
+          TopLeft="530.5,144">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="30,98"
+              Start="0,0"
+              End="30,90.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,45" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,45"
+                    Point2="0,49"
+                    Point3="4,49" />
+                  <mssgle:LineSegment
+                    End="26,49" />
+                  <mssgle:CubicBezierSegment
+                    Point1="26,49"
+                    Point2="30,49"
+                    Point3="30,53" />
+                  <mssgle:LineSegment
+                    End="30,90.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\LoadDatum\StimmungWarehouse (DimDatum)">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

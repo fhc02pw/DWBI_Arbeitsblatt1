@@ -1,0 +1,70 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="4/12/2021 8:48:44 AM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="ATGRAZ408"
+  DTS:CreatorName="BRATEGGE\weihsp"
+  DTS:DTSID="{419BD263-51A2-4DBB-BCF0-E0EA074BC3A7}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="15.0.2000.157"
+  DTS:LocaleID="3079"
+  DTS:ObjectName="Package1"
+  DTS:PackageType="5"
+  DTS:VersionBuild="1"
+  DTS:VersionGUID="{099B06B4-39FB-4401-80C1-B1058ACA1625}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[ATGRAZ408.StimmungStaging]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{540D1401-EF08-43FE-B09F-733ADDC80AF9}"
+      DTS:ObjectName="ATGRAZ408.StimmungStaging">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Data Source=ATGRAZ408;Initial Catalog=StimmungStaging;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Execute SQL Task"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{5DC62EF0-7E3F-43B2-AAEE-AE8776F28195}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Execute SQL Task"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2019; © 2019 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{540D1401-EF08-43FE-B09F-733ADDC80AF9}"
+          SQLTask:SqlStatementSource="&#xA;&#xA;MERGE INTO StimmungsWarehouse.dbo.FactBewertungen AS tgt&#xA;USING&#xA;&#x9;-- Bewertungen, Businesskeys und Dimensionskeys&#xA;&#x9;(SELECT b.[BewertungBusinessKey],&#xA;&#x9;&#x9;&#x9;k.KundeKey,&#xA;&#x9;&#x9;&#x9;m.MitarbeiterKey,&#xA;&#x9;&#x9;&#x9;b.Produkt,&#xA;&#x9;&#x9;&#x9;b.Datum,&#xA;&#x9;&#x9;&#x9;b.Freundlichkeit,&#xA;&#x9;&#x9;&#x9;b.Kompetenz,&#xA;&#x9;&#x9;&#x9;b.DurchschnittBerechnet FROM StimmungStaging.dbo.Bewertungen b&#xA;&#x9;INNER JOIN StimmungsWarehouse.dbo.DimKunden k ON k.[KundeAlternateKey] = b.[KundeBusinessKey] AND k.History='Current'&#xA;&#x9;INNER JOIN StimmungsWarehouse.dbo.DimMitarbeiter m ON m.[MitarbeiterAlternateKey] = b.MitarbeiterBusinessKey&#xA;&#x9;&#xA;&#x9;)&#xA;&#x9;AS src &#xA;&#x9;&#xA;&#x9;-- Match &#xA;&#x9;ON (&#xA;&#x9;&#x9;src.[BewertungBusinessKey]  = tgt.BewertungAlternateKey&#xA;&#x9;   )&#xA;&#x9;   WHEN MATCHED THEN&#xA;&#x9;&#x9;UPDATE &#xA;&#x9;&#x9;SET tgt.Freundlichkeit = src.Freundlichkeit,&#xA;&#x9;&#x9;    tgt.Kompetenz = src.Kompetenz,&#xA;&#x9;&#x9;&#x9;tgt.DurchschnittBerechnet = src.DurchschnittBerechnet&#xA;&#xA;&#x9;&#x9;-- If not, insert a new record&#xA;&#x9;WHEN NOT MATCHED THEN&#xA;&#x9;&#x9;&#x9;INSERT ([BewertungAlternateKey],KundeKey,MitarbeiterKey,Produkt,Datum,Freundlichkeit,Kompetenz,DurchschnittBerechnet)&#xA;&#x9;&#x9;&#x9;VALUES (src.[BewertungBusinessKey], KundeKey, src.MitarbeiterKey, src.Produkt, Datum,Freundlichkeit,Kompetenz,DurchschnittBerechnet);&#xA;&#x9;&#xA;&#xA;&#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
+        <NodeLayout
+          Size="163,42"
+          Id="Package\Execute SQL Task"
+          TopLeft="389,221" />
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>
